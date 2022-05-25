@@ -35,17 +35,17 @@ let i = 0;
 //     }
 // }
 
-do {
-    const lastFilm = prompt("Один из последних просмотренных фильмов?", ""),
-    lastFilmRating = prompt("На сколько оцените его?", "");
+// do {
+//     const lastFilm = prompt("Один из последних просмотренных фильмов?", ""),
+//     lastFilmRating = prompt("На сколько оцените его?", "");
 
-    if (lastFilm != null && lastFilmRating != null && lastFilm != '' && 
-    lastFilmRating != '' && lastFilm.length < 50) {
-        personalMovieDB.movies[`${lastFilm}${i}`] = `${lastFilmRating}${i}`;
-        i++;
-    }
-}
-while (i < 2);
+//     if (lastFilm != null && lastFilmRating != null && lastFilm != '' && 
+//     lastFilmRating != '' && lastFilm.length < 50) {
+//         personalMovieDB.movies[`${lastFilm}`] = `${lastFilmRating}`;
+//         i++;
+//     }
+// }
+// while (i < 2);
 
 if (personalMovieDB.count < 10) {
     console.log("Просмотрено довольно мало фильмов");
