@@ -1,78 +1,48 @@
-"use strict";
+/* Задания на урок:
 
-let numberOfFilms;
+1) Удалить все рекламные блоки со страницы (правая часть сайта)
 
-function start () {
-    numberOfFilms = +prompt("Сколько фильмов Вы уже просмотрели?", "");
+2) Изменить жанр фильма, поменять "комедия" на "драма"
 
-    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)
-    ) {
-        numberOfFilms = +prompt("Сколько фильмов Вы уже просмотрели?", "");
-    }
-}
+3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
+Реализовать только при помощи JS
 
-start();
+4) Список фильмов на странице сформировать на основании данных из этого JS файла.
+Отсортировать их по алфавиту 
 
-const personalMovieDB = {
-    count: numberOfFilms,
-    movies: rememberMyFilms(),
-    actors: {},
-    genres: writeYourGenres(),
-    privat: showMyDB()
+5) Добавить нумерацию выведенных фильмов */
+
+'use strict';
+
+const movieDB = {
+    movies: [
+        "Логан",
+        "Лига справедливости",
+        "Ла-ла лэнд",
+        "Одержимость",
+        "Скотт Пилигрим против..."
+    ]
 };
 
-function rememberMyFilms() {
-    for (let i = 0; i < 2; i++) {
-        const lastFilm = prompt("Один из последних просмотренных фильмов?", ""),
-        lastFilmRating = prompt("На сколько оцените его?", "");
-    
-        if (lastFilm != null && lastFilmRating != null && lastFilm != '' && 
-            lastFilmRating != '' && lastFilm.length < 50) {
-                personalMovieDB.movies[`${lastFilm}${i}`] = 
-                `${lastFilmRating}${i}`;
-        } else {
-            i--;
-        }
-    }
-}
+const adv = document.querySelectorAll('.promo__adv img'),
+      poster = document.querySelector('.promo__bg'),
+      genre = poster.querySelector('.promo__genre'),
+      movieList = document.querySelectorAll('.promo__interactive-list');
 
-function detectPersonalLevel () {
-    if (personalMovieDB.count < 10) {
-        console.log("Просмотрено довольно мало фильмов");
-    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30 ) {
-        console.log("Вы классический зритель");
-    } else if (personalMovieDB.count >= 30) {
-        console.log("Вы киноман");
-    } else {
-        console.log("Произошла ошибка");
-    }
-}
+adv.forEach(item => {
+    item.remove();  
+});
 
-detectPersonalLevel();
+genre.textContent = 'драма';
 
-function showMyDB (personalMovieDB) {
-    if (!personalMovieDB.privat) {
-        console.log(personalMovieDB);
-    }
-}
+poster.style.backgroundImage = 'url("img/bg.jpg")';
 
-showMyDB();
+movieDB.movies.sort();
 
-function writeYourGenres () {
-    for (let i = 1; i <= 3; i++) {
-        personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`
-        );
-        if () {
-            
-        }
-    }
-}
-
-
-function toggleVisibleMyDB() {
-    if (personalMovieDB.privat === false) {
-        personalMovieDB.privat = true;
-    } else {
-        personalMovieDB.privat = false;
-    }
-}
+movieDB.movies.forEach((film, i) => {
+    movieList.innerHTML += `
+        <li class="promo__interactive-item">${i + 1}. ${film}
+            <div class="delete"></div>
+        </li>
+    `;
+});
